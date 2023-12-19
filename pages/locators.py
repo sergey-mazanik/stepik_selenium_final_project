@@ -15,3 +15,17 @@ class LoginPageLocators:
     REGISTER_PASSWORD2_INPUT = (By.XPATH, '//input[@id="id_registration-password2"]')
     LOGIN_BUTTON = (By.XPATH, '//button[@name="login_submit"]')
     REGISTER_BUTTON = (By.XPATH, '//button[@name="registration_submit"]')
+
+
+class ProductPageLocators:
+    ADD_TO_BASKET_BUTTON = (By.XPATH, '//form[@id="add_to_basket_form"]/button')
+    PRODUCT_HAS_BEEN_ADDED_ALERT = (By.XPATH, '//div[@class="alertinner "]')
+    PRODUCT_NAME_IN_ALERT_BASKET = (By.XPATH, '(//div[@class="alertinner "]/strong)[1]')
+    PRODUCT_NAME_ON_PRODUCT_PAGE = (By.XPATH, '//h1')
+    PRODUCT_PRICE_IN_ALERT_BASKET = (By.XPATH, '(//p/strong)[2]')
+    PRODUCT_PRICE_ON_PRODUCT_PAGE = (By.XPATH, '(//p[@class="price_color"])[1]')
+
+
+class BasePageLocators():
+    LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
+    LOGIN_LINK_INVALID = (By.CSS_SELECTOR, "#login_link_inc")
