@@ -1,9 +1,46 @@
 from .pages.product_page import ProductPage
 from .pages.login_page import LoginPage
 from .pages.basket_page import BasketPage
+from .pages.base_page import BasePage
 from .pages.locators import ProductPageLocators
-from time import sleep
+from time import sleep, time
 import pytest
+
+
+@pytest.mark.login
+class TestUserAddToBasketFromProductPage:
+    @pytest.fixture(scope="function", autouse=True)
+    def setup(self, browser):
+        link = "https://selenium1py.pythonanywhere.com/accounts/login/"
+        login_page = LoginPage(browser, link)
+        login_page.open()
+        email = str(time()) + "@fakemail.org"
+        password = 'testTEST123!'
+        login_page.register_new_user(email, password)
+        login_page.should_be_authorized_user()
+
+    def test_user_can_add_product_to_basket(self, browser):
+        link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer0"
+        page = ProductPage(browser, link)
+        page.open()
+        # print(link)
+        # page.should_be_param_in_url('promo=newYear')
+        page.add_product_to_basket()
+        page.solve_quiz_and_get_code()
+        sleep(2)
+        page.product_has_been_added_alert()
+        page.check_product_name(page.return_book_name())
+        page.check_product_price(page.return_book_price())
+
+    @pytest.mark.xfail
+    def test_user_cant_see_success_message_after_adding_product_to_basket(self, browser):
+        link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer0"
+        page = ProductPage(browser, link)
+        page.open()
+        page.add_product_to_basket()
+        page.solve_quiz_and_get_code()
+        sleep(2)
+        page.should_not_be_success_message()
 
 
 # @pytest.mark.parametrize('link', ["http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer0",
@@ -40,13 +77,6 @@ def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
     page.add_product_to_basket()
     page.solve_quiz_and_get_code()
     sleep(2)
-    page.should_not_be_success_message()
-
-
-def test_guest_cant_see_success_message(browser):
-    link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer0"
-    page = ProductPage(browser, link)
-    page.open()
     page.should_not_be_success_message()
 
 

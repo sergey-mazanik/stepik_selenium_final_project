@@ -26,10 +26,11 @@ class ProductPageLocators:
     PRODUCT_PRICE_ON_PRODUCT_PAGE = (By.XPATH, '(//p[@class="price_color"])[1]')
 
 
-class BasePageLocators():
+class BasePageLocators:
     LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
     LOGIN_LINK_INVALID = (By.CSS_SELECTOR, "#login_link_inc")
     GO_TO_BASKET_BUTTON = (By.XPATH, '//a[@class="btn btn-default"]')
+    USER_ICON = (By.CSS_SELECTOR, ".icon-user")
 
 
 class BasketPageLocators:
